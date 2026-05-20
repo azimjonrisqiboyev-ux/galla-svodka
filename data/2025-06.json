@@ -1,0 +1,235 @@
+{
+  "meta": {
+    "sana": "2025-06-25",
+    "mavsum": "Bahori 2024-2025",
+    "viloyat": "Toshkent viloyati"
+  },
+  "umumiy": [
+    {
+      "tuman": "Бекобод",
+      "reja": 12000,
+      "ekish_f": 95.37,
+      "sug_f": 97.76,
+      "unib_ga": 10921,
+      "unib_f": 91.01
+    },
+    {
+      "tuman": "Бўка",
+      "reja": 14000,
+      "ekish_f": 98.84,
+      "sug_f": 92.43,
+      "unib_ga": 13181,
+      "unib_f": 94.15
+    },
+    {
+      "tuman": "Пискент",
+      "reja": 8000,
+      "ekish_f": 91.16,
+      "sug_f": 89.37,
+      "unib_ga": 7143,
+      "unib_f": 89.28
+    },
+    {
+      "tuman": "Юқоричирчиқ",
+      "reja": 5803,
+      "ekish_f": 95.75,
+      "sug_f": 94.83,
+      "unib_ga": 5024,
+      "unib_f": 86.57
+    },
+    {
+      "tuman": "Ўртачирчиқ",
+      "reja": 10100,
+      "ekish_f": 92.47,
+      "sug_f": 89.06,
+      "unib_ga": 9196,
+      "unib_f": 91.05
+    },
+    {
+      "tuman": "Оққўрғон",
+      "reja": 10700,
+      "ekish_f": 93.3,
+      "sug_f": 95.08,
+      "unib_ga": 8720,
+      "unib_f": 81.49
+    },
+    {
+      "tuman": "Қуйичирчиқ",
+      "reja": 13700,
+      "ekish_f": 98.3,
+      "sug_f": 97.2,
+      "unib_ga": 11402,
+      "unib_f": 83.23
+    },
+    {
+      "tuman": "Чиноз",
+      "reja": 7500,
+      "ekish_f": 97.54,
+      "sug_f": 96.94,
+      "unib_ga": 6770,
+      "unib_f": 90.26
+    },
+    {
+      "tuman": "Янгийўл",
+      "reja": 7868,
+      "ekish_f": 97.36,
+      "sug_f": 97.24,
+      "unib_ga": 7015,
+      "unib_f": 89.16
+    },
+    {
+      "tuman": "Зангиота",
+      "reja": 500,
+      "ekish_f": 95.59,
+      "sug_f": 88.58,
+      "unib_ga": 435,
+      "unib_f": 87.08
+    },
+    {
+      "tuman": "Охангарон",
+      "reja": 4700,
+      "ekish_f": 94.11,
+      "sug_f": 95.3,
+      "unib_ga": 4259,
+      "unib_f": 90.61
+    },
+    {
+      "tuman": "Қибрай",
+      "reja": 873.95,
+      "ekish_f": 99.9,
+      "sug_f": 93.21,
+      "unib_ga": 790,
+      "unib_f": 90.4
+    },
+    {
+      "tuman": "Бустонлиқ",
+      "reja": 1000,
+      "ekish_f": 96.33,
+      "sug_f": 89.65,
+      "unib_ga": 847,
+      "unib_f": 84.69
+    }
+  ],
+  "jami": [
+    {
+      "tuman": "Бекобод",
+      "reja": 13100,
+      "suvli_ga": 11268,
+      "suvli_f": 89.43,
+      "lalmi_ga": 463,
+      "lalmi_f": 92.6
+    },
+    {
+      "tuman": "Бўка",
+      "reja": 15000,
+      "suvli_ga": 13851,
+      "suvli_f": 94.87,
+      "lalmi_ga": 333,
+      "lalmi_f": 83.15
+    },
+    {
+      "tuman": "Пискент",
+      "reja": 8850,
+      "suvli_ga": 7605,
+      "suvli_f": 90.0,
+      "lalmi_ga": 340,
+      "lalmi_f": 84.99
+    },
+    {
+      "tuman": "Юқоричирчиқ",
+      "reja": 6703,
+      "suvli_ga": 5548,
+      "suvli_f": 89.44,
+      "lalmi_ga": 473,
+      "lalmi_f": 94.68
+    },
+    {
+      "tuman": "Ўртачирчиқ",
+      "reja": 10900,
+      "suvli_ga": 9651,
+      "suvli_f": 90.19,
+      "lalmi_ga": 170,
+      "lalmi_f": 84.96
+    },
+    {
+      "tuman": "Оққўрғон",
+      "reja": 11200,
+      "suvli_ga": 10523,
+      "suvli_f": 93.95,
+      "lalmi_ga": 0,
+      "lalmi_f": 0
+    },
+    {
+      "tuman": "Қуйичирчиқ",
+      "reja": 14300,
+      "suvli_ga": 13846,
+      "suvli_f": 96.82,
+      "lalmi_ga": 0,
+      "lalmi_f": 0
+    },
+    {
+      "tuman": "Чиноз",
+      "reja": 7900,
+      "suvli_ga": 7601,
+      "suvli_f": 96.21,
+      "lalmi_ga": 0,
+      "lalmi_f": 0
+    },
+    {
+      "tuman": "Янгийўл",
+      "reja": 8318,
+      "suvli_ga": 7834,
+      "suvli_f": 94.18,
+      "lalmi_ga": 0,
+      "lalmi_f": 0
+    },
+    {
+      "tuman": "Зангиота",
+      "reja": 700,
+      "suvli_ga": 653,
+      "suvli_f": 93.34,
+      "lalmi_ga": 0,
+      "lalmi_f": 0
+    },
+    {
+      "tuman": "Охангарон",
+      "reja": 7300,
+      "suvli_ga": 4950,
+      "suvli_f": 93.4,
+      "lalmi_ga": 1801,
+      "lalmi_f": 90.03
+    },
+    {
+      "tuman": "Қибрай",
+      "reja": 1074,
+      "suvli_ga": 994,
+      "suvli_f": 92.56,
+      "lalmi_ga": 0,
+      "lalmi_f": 0
+    },
+    {
+      "tuman": "Бустонлиқ",
+      "reja": 1900,
+      "suvli_ga": 1264,
+      "suvli_f": 90.32,
+      "lalmi_ga": 432,
+      "lalmi_f": 86.33
+    },
+    {
+      "tuman": "Паркент",
+      "reja": 1000,
+      "suvli_ga": 480,
+      "suvli_f": 95.92,
+      "lalmi_ga": 428,
+      "lalmi_f": 85.59
+    },
+    {
+      "tuman": "Тошкент",
+      "reja": 500,
+      "suvli_ga": 467,
+      "suvli_f": 93.4,
+      "lalmi_ga": 0,
+      "lalmi_f": 0
+    }
+  ]
+}
