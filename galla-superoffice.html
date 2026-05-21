@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gʻalla Monitor — Toshkent viloyati</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sidebar-bg:   #1A3C2E;
+  --sidebar-w:    56px;
+  --sidebar-w-ex: 220px;
+  --bg:           #F2F4F3;
+  --white:        #FFFFFF;
+  --border:       #E2E8E4;
+  --border2:      #D0D8D3;
+
+  --g900: #0F2A1E;
+  --g700: #1A3C2E;
+  --g500: #2E7A52;
+  --g400: #3A9966;
+  --g300: #5CB882;
+  --g200: #A8D9BC;
+  --g100: #D4EFE2;
+  --g50:  #EDF7F2;
+
+  --gold:  #E8963A;
+  --red:   #DC4C4C;
+  --blue:  #3A7BD5;
+  --teal:  #2A9D8F;
+
+  --txt:   #1A2E24;
+  --txt2:  #4A6358;
+  --txt3:  #7A9A8A;
+
+  --r:  8px;
+  --rl: 12px;
+  --sh: 0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.04);
+  --shm: 0 4px 20px rgba(0,0,0,.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 14px; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ══ SIDEBAR ══ */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0; left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 200;
+  transition: width .25s ease;
+  overflow: hidden;
+}
+.sidebar:hover { width: var(--sidebar-w-ex); }
+
+.sb-logo {
+  width: 100%;
+  padding: 14px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  min-height: 56px;
+  flex-shrink: 0;
+}
+.sb-logo-icon {
+  width: 32px; height: 32px;
+  background: var(--g400);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+.sb-logo-text {
+  margin-left: 10px;
+  opacity: 0;
+  transition: opacity .2s;
+  white-space: nowrap;
+}
+.sidebar:hover .sb-logo-text { opacity: 1; }
+.sb-logo-title { font-size: 13px; font-weight: 700; color: #fff; }
+.sb-logo-sub   { font-size: 10px; color: var(--g200); margin-top: 1px; }
+
+.sb-nav { padding: 12px 0; flex: 1; width: 100%; }
+.sb-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 0 10px 15px;
+  cursor: pointer;
+  transition: background .15s;
+  position: relative;
+  white-space: nowrap;
+}
+.sb-item:hover   { background: rgba(255,255,255,.08); }
+.sb-item.active  { background: rgba(255,255,255,.12); }
+.sb-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--g300);
+  border-radius: 0 2px 2px 0;
+}
+.sb-icon { font-size: 18px; flex-shrink: 0; width: 26px; text-align: center; }
+.sb-label {
+  font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,.7);
+  margin-left: 12px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.sidebar:hover .sb-label { opacity: 1; }
+.sb-item.active .sb-label { color: #fff; }
+
+.sb-bottom {
+  padding: 12px 0;
+  border-top: 1px solid rgba(255,255,255,.1);
+  width: 100%;
+}
+
+/* ══ TOPBAR ══ */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-w);
+  right: 0;
+  height: 56px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+  z-index: 100;
+  box-shadow: var(--sh);
+  transition: left .25s ease;
+}
+
+.topbar-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+.top-tab {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px; font-weight: 500;
+  color: var(--txt3);
+  cursor: pointer;
+  transition: all .15s;
+  border: 1.5px solid transparent;
+  white-space: nowrap;
+}
+.top-tab:hover  { background: var(--g50); color: var(--txt2); }
+.top-tab.active {
+  background: var(--g50);
+  color: var(--g500);
+  border-color: var(--g200);
+}
+.top-tab-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.tb-period {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px; color: var(--txt2);
+}
+.tb-period select {
+  border: none; background: none; font-family: 'Inter', sans-serif;
+  font-size: 12px; color: var(--txt); cursor: pointer; outline: none;
+}
+.tb-refresh {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 15px;
+  transition: background .15s;
+  background: var(--white);
+}
+.tb-refresh:hover { background: var(--g50); }
+.live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--g400);
+  animation: lpulse 2.5s ease-in-out infinite;
+}
+@keyframes lpulse {
+  0%,100%{ box-shadow:0 0 0 0 rgba(58,153,102,.4); }
+  50%    { box-shadow:0 0 0 4px rgba(58,153,102,0); }
+}
+
+/* ══ MAIN ══ */
+.main {
+  margin-left: var(--sidebar-w);
+  margin-top: 56px;
+  flex: 1;
+  padding: 20px;
+  min-height: calc(100vh - 56px);
+  transition: margin-left .25s ease;
+}
+
+/* ══ SECTION TITLE ══ */
+.sec-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.sec-title {
+  font-size: 12px; font-weight: 600;
+  color: var(--txt2);
+  display: flex; align-items: center; gap: 6px;
+}
+.sec-action {
+  font-size: 11px; color: var(--txt3); cursor: pointer;
+}
+.sec-action:hover { color: var(--g500); }
+
+/* ══ KPI ROW ══ */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.kpi-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--rl);
+  padding: 16px 18px;
+  box-shadow: var(--sh);
+  cursor: default;
+  transition: box-shadow .2s;
+  position: relative;
+  overflow: hidden;
+  animation: fadeup .4s ease both;
+}
+.kpi-card:hover { box-shadow: var(--shm); }
+.kpi-card.accent {
+  background: linear-gradient(135deg, var(--g700) 0%, var(--g500) 100%);
+  border-color: var(--g500);
+}
+.kpi-card.accent * { color: #fff !important; }
+.kpi-card.accent .kpi-sub { color: var(--g200) !important; }
+.kpi-card.accent .kpi-target { color: var(--g200) !important; }
+
+.kpi-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
+.kpi-label { font-size: 11px; font-weight: 500; color: var(--txt3); }
+.kpi-menu  { font-size: 16px; color: var(--border2); cursor: pointer; line-height: 1; }
+.kpi-menu:hover { color: var(--txt3); }
+
+.kpi-amount { font-size: 32px; font-weight: 700; line-height: 1; letter-spacing: -1.5px; color: var(--txt); }
+.kpi-amount.green  { color: var(--g500); }
+.kpi-amount.orange { color: var(--gold); }
+.kpi-amount.red    { color: var(--red); }
+.kpi-amount.white  { color: #fff; }
+
+.kpi-sub    { font-size: 11px; color: var(--txt3); margin-top: 4px; }
+.kpi-target { font-size: 10px; color: var(--txt3); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+
+@keyframes fadeup {
+  from { opacity:0; transform: translateY(10px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.kpi-card:nth-child(1){ animation-delay:.04s; }
+.kpi-card:nth-child(2){ animation-delay:.08s; }
+.kpi-card:nth-child(3){ animation-delay:.12s; }
+.kpi-card:nth-child(4){ animation-delay:.16s; }
+
+/* ══ WIDGET GRID ══ */
+.widget-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.widget-grid-2 {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* ══ WIDGET ══ */
+.widget {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--rl);
+  box-shadow: var(--sh);
+  overflow: hidden;
+  animation: fadeup .5s ease both;
+}
+.widget-hdr {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.w-title {
+  font-size: 12px; font-weight: 600; color: var(--txt);
+  display: flex; align-items: center; gap: 6px;
+}
+.w-icon { font-size: 13px; }
+.w-menu { font-size: 16px; color: var(--border2); cursor: pointer; }
+.w-menu:hover { color: var(--txt3); }
+.widget-body { padding: 14px 16px; }
+.widget-body.no-pad { padding: 0; }
+
+/* ══ CHART WRAP ══ */
+.chart-wrap { position: relative; width: 100%; }
+
+/* ══ DONUT WIDGET ══ */
+.donut-wrap {
+  display: flex; align-items: center; gap: 20px;
+  padding: 8px 0;
+}
+.donut-canvas-wrap { position: relative; flex-shrink: 0; }
+.donut-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  pointer-events: none;
+}
+.donut-val { font-size: 22px; font-weight: 700; color: var(--txt); line-height: 1; }
+.donut-unit { font-size: 10px; color: var(--txt3); margin-top: 2px; }
+
+.donut-legend { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.dl-item { display: flex; align-items: center; gap: 8px; }
+.dl-dot  { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.dl-name { font-size: 11px; color: var(--txt2); flex: 1; }
+.dl-val  { font-size: 12px; font-weight: 600; color: var(--txt); font-family: 'JetBrains Mono', monospace; }
+
+/* ══ RANK LIST ══ */
+.rank-list { display: flex; flex-direction: column; }
+.rank-item {
+  display: flex; align-items: center;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+  transition: background .12s;
+}
+.rank-item:last-child { border-bottom: none; }
+.rank-item:hover { background: var(--g50); }
+.rank-num  { font-size: 11px; color: var(--txt3); min-width: 18px; font-weight: 600; }
+.rank-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--g100);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; flex-shrink: 0;
+}
+.rank-name { font-size: 12px; font-weight: 500; color: var(--txt); flex: 1; }
+.rank-pct  { font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.rank-pct.g { color: var(--g500); }
+.rank-pct.a { color: var(--gold); }
+.rank-pct.r { color: var(--red); }
+
+/* ══ PROGRESS INLINE ══ */
+.pi-wrap  { display: flex; align-items: center; gap: 8px; }
+.pi-track { flex: 1; height: 4px; background: var(--g100); border-radius: 2px; overflow: hidden; }
+.pi-fill  { height: 100%; border-radius: 2px; }
+.pi-lbl   { font-size: 11px; font-weight: 600; min-width: 38px; text-align: right; font-family: 'JetBrains Mono', monospace; }
+
+/* ══ TABLE ══ */
+.tbl-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead th {
+  text-align: left; padding: 10px 14px;
+  font-size: 10px; font-weight: 600; color: var(--txt3);
+  text-transform: uppercase; letter-spacing: .6px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  white-space: nowrap;
+}
+tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--txt2); vertical-align: middle; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: var(--g50); }
+.total-row td { background: var(--g50) !important; font-weight: 600; color: var(--txt); border-top: 2px solid var(--g100) !important; }
+.tc-name { font-weight: 600; color: var(--txt) !important; }
+.tc-num  { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+
+/* ══ BADGES ══ */
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 2px 8px; border-radius: 12px;
+  font-size: 11px; font-weight: 600; font-family: 'JetBrains Mono', monospace;
+}
+.bg { background: var(--g100); color: var(--g500); }
+.ba { background: #FEF0E0; color: #B06820; }
+.br { background: #FCEAEA; color: #B03030; }
+
+/* ══ TABS ══ */
+.wtabs { display: flex; padding: 0 16px; border-bottom: 1px solid var(--border); gap: 0; }
+.wtab-btn {
+  padding: 10px 14px; font-size: 11px; font-weight: 600; color: var(--txt3);
+  background: none; border: none; cursor: pointer;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  transition: color .15s; font-family: 'Inter', sans-serif;
+  text-transform: uppercase; letter-spacing: .5px;
+}
+.wtab-btn.active { color: var(--g500); border-bottom-color: var(--g400); }
+.wtab-btn:hover  { color: var(--txt); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ══ ALERT-BAND ══ */
+.alert-band {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--rl);
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: var(--sh);
+}
+.ab-chip {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; color: var(--txt2);
+  white-space: nowrap;
+}
+.ab-chip strong { color: var(--txt); font-weight: 600; }
+.ab-sep { color: var(--border2); }
+
+/* ══ STATES ══ */
+.state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; gap: 1rem; text-align: center; }
+.spinner { width: 28px; height: 28px; border: 2px solid var(--g100); border-top-color: var(--g400); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.state-msg { font-size: 12px; color: var(--txt3); }
+
+/* ══ SCROLLBAR ══ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:1100px){
+  .kpi-row { grid-template-columns: repeat(2,1fr); }
+  .widget-grid, .widget-grid-2 { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:700px){
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .widget-grid, .widget-grid-2 { grid-template-columns: 1fr; }
+  .main { padding: 12px; }
+  .topbar-tabs { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar" id="sb">
+  <div class="sb-logo">
+    <div class="sb-logo-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M12 20V8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M12 14L9 11M12 14L15 11" stroke="#F0C84A" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M12 18L9 15M12 18L15 15" stroke="#F0C84A" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="12" cy="8" r="2" fill="#F0C84A"/>
+        <circle cx="9" cy="11" r="1.4" fill="#F0C84A"/>
+        <circle cx="15" cy="11" r="1.4" fill="#F0C84A"/>
+        <circle cx="9" cy="15" r="1.4" fill="#F0C84A"/>
+        <circle cx="15" cy="15" r="1.4" fill="#F0C84A"/>
+      </svg>
+    </div>
+    <div class="sb-logo-text">
+      <div class="sb-logo-title">Gʻalla Monitor</div>
+      <div class="sb-logo-sub">Toshkent viloyati</div>
+    </div>
+  </div>
+
+  <nav class="sb-nav">
+    <div class="sb-item active">
+      <span class="sb-icon">📊</span>
+      <span class="sb-label">Asosiy panel</span>
+    </div>
+    <div class="sb-item" onclick="scrollToEl('widgetsTop')">
+      <span class="sb-icon">📈</span>
+      <span class="sb-label">Grafiklar</span>
+    </div>
+    <div class="sb-item" onclick="scrollToEl('tableWrap')">
+      <span class="sb-icon">📋</span>
+      <span class="sb-label">Jadval</span>
+    </div>
+    <div class="sb-item" onclick="scrollToEl('rankWrap')">
+      <span class="sb-icon">🏆</span>
+      <span class="sb-label">Reyting</span>
+    </div>
+    <div class="sb-item" onclick="scrollToEl('jamiWrap')">
+      <span class="sb-icon">🌾</span>
+      <span class="sb-label">Suvli & Lalmi</span>
+    </div>
+  </nav>
+
+  <div class="sb-bottom">
+    <div class="sb-item">
+      <span class="sb-icon">⚙️</span>
+      <span class="sb-label">Sozlamalar</span>
+    </div>
+  </div>
+</aside>
+
+<!-- ══ TOPBAR ══ -->
+<header class="topbar">
+  <div class="topbar-tabs" id="topbarTabs">
+    <div class="top-tab active">
+      <div class="top-tab-dot" style="background:var(--g400)"></div>
+      <span id="tabMavsum">Kuzgi 2025–2026</span>
+    </div>
+    <div class="top-tab">
+      <div class="top-tab-dot" style="background:var(--gold)"></div>
+      <span>Umumiy svodka</span>
+    </div>
+    <div class="top-tab">
+      <div class="top-tab-dot" style="background:var(--blue)"></div>
+      <span>Mening KPI'larim</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="tb-period">
+      📅
+      <select id="periodSelect" onchange="loadPeriod(this.value)">
+        <option value="2025-11">Noyabr 2025</option>
+        <option value="2025-12">Dekabr 2025</option>
+        <option value="2026-01">Yanvar 2026</option>
+        <option value="2026-02">Fevral 2026</option>
+        <option value="2026-03">Mart 2026</option>
+      </select>
+    </div>
+    <div class="tb-refresh" onclick="loadPeriod(document.getElementById('periodSelect').value)" title="Yangilash">↻</div>
+    <div class="live-dot" title="Jonli"></div>
+  </div>
+</header>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+  <div id="appRoot">
+    <div class="state">
+      <div class="spinner"></div>
+      <div class="state-msg">yuklanmoqda...</div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const CONFIG = { owner:'YOUR_GITHUB_USERNAME', repo:'galla-svodka', branch:'main', useDemo:true };
+
+const DEMO = {
+  meta:{ sana:"2025-11-25", mavsum:"Kuzgi 2025-2026", viloyat:"Toshkent viloyati" },
+  umumiy:[
+    {tuman:"Бекобод",    reja:12000,   ekish_f:100,    sug_f:96.41,  unib_ga:10648, unib_f:88.73},
+    {tuman:"Бўка",       reja:14000,   ekish_f:99.999, sug_f:100,    unib_ga:12015, unib_f:85.82},
+    {tuman:"Пискент",    reja:8000,    ekish_f:100,    sug_f:95.28,  unib_ga:7012,  unib_f:87.65},
+    {tuman:"Юқоричирчиқ",reja:5803,    ekish_f:100,    sug_f:85.34,  unib_ga:4276,  unib_f:73.69},
+    {tuman:"Ўртачирчиқ", reja:10100,   ekish_f:100,    sug_f:87.24,  unib_ga:7227,  unib_f:71.55},
+    {tuman:"Оққўрғон",   reja:10700,   ekish_f:100,    sug_f:100,    unib_ga:10700, unib_f:100},
+    {tuman:"Қуйичирчиқ", reja:13700,   ekish_f:100,    sug_f:100,    unib_ga:11677, unib_f:85.23},
+    {tuman:"Чиноз",      reja:7500,    ekish_f:100,    sug_f:100,    unib_ga:7500,  unib_f:100},
+    {tuman:"Янгийўл",    reja:7868,    ekish_f:99.59,  sug_f:94.13,  unib_ga:7211,  unib_f:91.65},
+    {tuman:"Зангиота",   reja:500,     ekish_f:100,    sug_f:100,    unib_ga:500,   unib_f:100},
+    {tuman:"Охангарон",  reja:4700,    ekish_f:91.72,  sug_f:91.49,  unib_ga:2945,  unib_f:62.66},
+    {tuman:"Қибрай",     reja:873.95,  ekish_f:100,    sug_f:100,    unib_ga:874,   unib_f:100},
+    {tuman:"Бустонлиқ",  reja:1000,    ekish_f:100,    sug_f:100,    unib_ga:1000,  unib_f:100},
+  ],
+  jami:[
+    {tuman:"Бекобод",    reja:13100, suvli_ga:12283,   suvli_f:97.48, lalmi_ga:452,  lalmi_f:90.4},
+    {tuman:"Бўка",       reja:15000, suvli_ga:14253.9, suvli_f:97.63, lalmi_ga:180,  lalmi_f:45},
+    {tuman:"Пискент",    reja:8850,  suvli_ga:8143,    suvli_f:96.37, lalmi_ga:80,   lalmi_f:20},
+    {tuman:"Юқоричирчиқ",reja:6703,  suvli_ga:5904,    suvli_f:95.18, lalmi_ga:124,  lalmi_f:24.8},
+    {tuman:"Ўртачирчиқ", reja:10900, suvli_ga:10506,   suvli_f:98.19, lalmi_ga:200,  lalmi_f:100},
+    {tuman:"Оққўрғон",   reja:11200, suvli_ga:11200,   suvli_f:100,   lalmi_ga:0,    lalmi_f:0},
+    {tuman:"Қуйичирчиқ", reja:14300, suvli_ga:14244,   suvli_f:99.61, lalmi_ga:0,    lalmi_f:0},
+    {tuman:"Чиноз",      reja:7900,  suvli_ga:7900,    suvli_f:100,   lalmi_ga:0,    lalmi_f:0},
+    {tuman:"Янгийўл",    reja:8318,  suvli_ga:7835.8,  suvli_f:94.2,  lalmi_ga:0,    lalmi_f:0},
+    {tuman:"Зангиота",   reja:700,   suvli_ga:700,     suvli_f:100,   lalmi_ga:0,    lalmi_f:0},
+    {tuman:"Охангарон",  reja:7300,  suvli_ga:4311,    suvli_f:81.34, lalmi_ga:188,  lalmi_f:9.4},
+    {tuman:"Қибрай",     reja:1074,  suvli_ga:1074,    suvli_f:100,   lalmi_ga:0,    lalmi_f:0},
+    {tuman:"Бустонлиқ",  reja:1900,  suvli_ga:1321,    suvli_f:94.36, lalmi_ga:430,  lalmi_f:86},
+    {tuman:"Паркент",    reja:1000,  suvli_ga:504,     suvli_f:100.8, lalmi_ga:500,  lalmi_f:100},
+    {tuman:"Тошкент",    reja:500,   suvli_ga:500,     suvli_f:100,   lalmi_ga:0,    lalmi_f:0},
+  ]
+};
+
+let _charts = {};
+function destroyCharts(){ Object.values(_charts).forEach(c=>c&&c.destroy&&c.destroy()); _charts={}; }
+
+function pColor(v){ return v>=95?'#3A9966':v>=80?'#E8963A':'#DC4C4C'; }
+function badge(v){ const c=v>=95?'bg':v>=80?'ba':'br'; return `<span class="badge ${c}">${v.toFixed(1)}%</span>`; }
+function pi(v){
+  const f=Math.min(v,100), col=pColor(v);
+  return `<div class="pi-wrap"><div class="pi-track"><div class="pi-fill" style="width:${f}%;background:${col}"></div></div><span class="pi-lbl" style="color:${col}">${v.toFixed(1)}%</span></div>`;
+}
+function n(v){ return Math.round(v).toLocaleString('ru'); }
+function sn(s){ return s.replace('чирчиқ','чирч.').replace('Бустонлиқ','Бустонл.'); }
+function emoji(v){ return v>=95?'🟢':v>=80?'🟡':'🔴'; }
+
+async function loadPeriod(period){
+  destroyCharts();
+  document.getElementById('appRoot').innerHTML='<div class="state"><div class="spinner"></div><div class="state-msg">yuklanmoqda...</div></div>';
+  let data;
+  if(CONFIG.useDemo){ await new Promise(r=>setTimeout(r,350)); data=DEMO; }
+  else {
+    try{
+      const res=await fetch(`https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/data/${period}.json`);
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      data=await res.json();
+    }catch(e){
+      document.getElementById('appRoot').innerHTML=`<div class="state"><div style="color:var(--red);font-size:12px">❌ ${period}.json yuklanmadi: ${e.message}</div></div>`;
+      return;
+    }
+  }
+  renderDash(data);
+}
+
+function renderDash(data){
+  const d=data.umumiy;
+  const totReja = d.reduce((s,r)=>s+r.reja,0);
+  const totUnib = d.reduce((s,r)=>s+r.unib_ga,0);
+  const avgE    = d.reduce((s,r)=>s+r.ekish_f,0)/d.length;
+  const avgS    = d.reduce((s,r)=>s+r.sug_f,0)/d.length;
+  const avgU    = d.reduce((s,r)=>s+r.unib_f,0)/d.length;
+  const sorted  = [...d].sort((a,b)=>b.unib_f-a.unib_f);
+  const good    = d.filter(r=>r.unib_f>=95).length;
+  const mid     = d.filter(r=>r.unib_f>=80&&r.unib_f<95).length;
+  const bad     = d.filter(r=>r.unib_f<80).length;
+
+  document.getElementById('tabMavsum').textContent = data.meta.mavsum;
+
+  document.getElementById('appRoot').innerHTML = `
+
+    <!-- INFO BAND -->
+    <div class="alert-band">
+      <div class="ab-chip">🌾 Reja: <strong>${n(totReja)} ha</strong></div>
+      <div class="ab-sep">·</div>
+      <div class="ab-chip">📅 Sana: <strong>${data.meta.sana}</strong></div>
+      <div class="ab-sep">·</div>
+      <div class="ab-chip">🏘️ <strong>${d.length} tuman</strong> hisobot berdi</div>
+      <div class="ab-sep">·</div>
+      <div class="ab-chip">🟢 Yaxshi: <strong>${good}</strong></div>
+      <div class="ab-sep">·</div>
+      <div class="ab-chip">🟡 O'rta: <strong>${mid}</strong></div>
+      <div class="ab-sep">·</div>
+      <div class="ab-chip">🔴 Kuzatish: <strong>${bad}</strong></div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <div class="kpi-label">Ekish rejasi</div>
+          <div class="kpi-menu">⋯</div>
+        </div>
+        <div class="kpi-amount">${n(totReja)}</div>
+        <div class="kpi-sub">gektarlar (ha)</div>
+        <div class="kpi-target">Reja: ${n(totReja)} ha · ${d.length} tuman</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <div class="kpi-label">Ekish bajarildi — bu oy</div>
+          <div class="kpi-menu">⋯</div>
+        </div>
+        <div class="kpi-amount green">${avgE.toFixed(1)}%</div>
+        <div class="kpi-sub">mavsum o'rtachasi</div>
+        <div class="kpi-target">Maqsad ko'rsatkich: 100%</div>
+      </div>
+
+      <div class="kpi-card accent">
+        <div class="kpi-top">
+          <div class="kpi-label">Keyingi oy prognoz</div>
+          <div class="kpi-menu">⋯</div>
+        </div>
+        <div class="kpi-amount white">${n(totUnib)} ha</div>
+        <div class="kpi-sub">unib chiqqan maydon</div>
+        <div class="kpi-target">Maqsad: ${n(totReja)} ha · ${avgU.toFixed(1)}%</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <div class="kpi-label">Sugʻorish holati</div>
+          <div class="kpi-menu">⋯</div>
+        </div>
+        <div class="kpi-amount ${avgS>=95?'green':'orange'}">${avgS.toFixed(1)}%</div>
+        <div class="kpi-sub">o'rtacha sugʻorish</div>
+        <div class="kpi-target">Maqsad: ≥ 95%</div>
+      </div>
+    </div>
+
+    <!-- WIDGETS ROW 1 -->
+    <div class="widget-grid" id="widgetsTop">
+
+      <!-- Bar: Germination -->
+      <div class="widget">
+        <div class="widget-hdr">
+          <div class="w-title"><span class="w-icon">📈</span> Hosil prognoz — unib chiqish</div>
+          <span class="w-menu">⋯</span>
+        </div>
+        <div class="widget-body">
+          <div class="chart-wrap" style="height:200px"><canvas id="cForecast"></canvas></div>
+          <div style="display:flex;gap:14px;margin-top:10px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt3)"><div style="width:8px;height:8px;border-radius:2px;background:var(--g400)"></div> Unib chiqdi</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt3)"><div style="width:8px;height:8px;border-radius:2px;background:var(--g100)"></div> Hali unimagan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donut: Status -->
+      <div class="widget">
+        <div class="widget-hdr">
+          <div class="w-title"><span class="w-icon">🎯</span> Unib chiqish sabablari</div>
+          <span class="w-menu">⋯</span>
+        </div>
+        <div class="widget-body">
+          <div class="donut-wrap">
+            <div class="donut-canvas-wrap" style="width:140px;height:140px">
+              <canvas id="cDonut" width="140" height="140"></canvas>
+              <div class="donut-center">
+                <div class="donut-val">${avgU.toFixed(0)}%</div>
+                <div class="donut-unit">o'rtacha</div>
+              </div>
+            </div>
+            <div class="donut-legend">
+              <div class="dl-item">
+                <div class="dl-dot" style="background:#3A9966"></div>
+                <div class="dl-name">Yaxshi (≥95%)</div>
+                <div class="dl-val">${good} ta</div>
+              </div>
+              <div class="dl-item">
+                <div class="dl-dot" style="background:#E8963A"></div>
+                <div class="dl-name">O'rta (80–94%)</div>
+                <div class="dl-val">${mid} ta</div>
+              </div>
+              <div class="dl-item">
+                <div class="dl-dot" style="background:#DC4C4C"></div>
+                <div class="dl-name">Kuzatish (&lt;80%)</div>
+                <div class="dl-val">${bad} ta</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Line: This year comparison -->
+      <div class="widget">
+        <div class="widget-hdr">
+          <div class="w-title"><span class="w-icon">💧</span> Ekish va Sugʻorish taqqosi</div>
+          <span class="w-menu">⋯</span>
+        </div>
+        <div class="widget-body">
+          <div class="chart-wrap" style="height:180px"><canvas id="cLine"></canvas></div>
+          <div style="display:flex;gap:14px;margin-top:8px">
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt3)"><div style="width:8px;height:8px;border-radius:2px;background:var(--g400)"></div> Ekish %</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt3)"><div style="width:8px;height:8px;border-radius:2px;background:#3A7BD5"></div> Sugʻorish %</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIDGETS ROW 2 -->
+    <div class="widget-grid-2">
+
+      <!-- Top reps (rank) -->
+      <div class="widget" id="rankWrap">
+        <div class="widget-hdr">
+          <div class="w-title"><span class="w-icon">🏆</span> Tumanlar individual reyting</div>
+          <span class="w-menu">⋯</span>
+        </div>
+        <div class="widget-body no-pad">
+          <div class="rank-list" id="rankList"></div>
+        </div>
+      </div>
+
+      <!-- Sales falling: kuzatish -->
+      <div class="widget">
+        <div class="widget-hdr">
+          <div class="w-title"><span class="w-icon">⚠️</span> Kuzatish talab etadi — hozir</div>
+          <span class="w-menu">⋯</span>
+        </div>
+        <div class="widget-body no-pad">
+          <div id="watchList"></div>
+        </div>
+      </div>
+
+      <!-- Pipeline: suvli/lalmi -->
+      <div class="widget" id="jamiWrap">
+        <div class="widget-hdr">
+          <div class="w-title"><span class="w-icon">🌾</span> Ekish pipeline bu oy</div>
+          <span class="w-menu">⋯</span>
+        </div>
+        <div class="widget-body">
+          <div class="chart-wrap" style="height:170px"><canvas id="cPipe"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL TABLE -->
+    <div class="widget" id="tableWrap" style="margin-bottom:20px">
+      <div class="wtabs">
+        <button class="wtab-btn active" onclick="switchTab(this,'tUm')">📋 Umumiy svodka</button>
+        <button class="wtab-btn" onclick="switchTab(this,'tJm')">🌾 Suvli + Lalmi</button>
+      </div>
+
+      <div id="tUm" class="tab-panel active">
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr>
+              <th>#</th><th>Tuman</th><th>Reja (ha)</th>
+              <th>Ekish %</th><th>Sugʻorish %</th>
+              <th>Unib chiqqan (ha)</th><th>Unib chiqish %</th>
+            </tr></thead>
+            <tbody id="tbU"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tJm" class="tab-panel">
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr>
+              <th>#</th><th>Tuman</th><th>Jami reja (ha)</th>
+              <th>Suvli (ha)</th><th>Suvli %</th>
+              <th>Lalmi (ha)</th><th>Lalmi %</th>
+            </tr></thead>
+            <tbody id="tbJ"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Rank list
+  const rl = document.getElementById('rankList');
+  sorted.slice(0,7).forEach((r,i)=>{
+    const cls = r.unib_f>=95?'g':r.unib_f>=80?'a':'r';
+    rl.innerHTML += `
+      <div class="rank-item">
+        <span class="rank-num">${i+1}</span>
+        <div class="rank-avatar">${emoji(r.unib_f)}</div>
+        <span class="rank-name">${sn(r.tuman)}</span>
+        <span class="rank-pct ${cls}">${r.unib_f.toFixed(1)}%</span>
+      </div>`;
+  });
+
+  // Watch list
+  const wl = document.getElementById('watchList');
+  const watchItems = d.filter(r=>r.unib_f<90).sort((a,b)=>a.unib_f-b.unib_f);
+  if(watchItems.length===0){
+    wl.innerHTML='<div style="padding:20px 16px;font-size:12px;color:var(--txt3)">✅ Barcha tumanlar maqsad darajasida</div>';
+  } else {
+    watchItems.forEach(r=>{
+      wl.innerHTML += `
+        <div class="rank-item">
+          <div class="rank-avatar">⚠️</div>
+          <div style="flex:1">
+            <div style="font-size:12px;font-weight:600;color:var(--txt)">${sn(r.tuman)}</div>
+            <div style="font-size:10px;color:var(--txt3);margin-top:2px;font-family:'JetBrains Mono',monospace">Sug: ${r.sug_f.toFixed(1)}% · Unib: ${r.unib_f.toFixed(1)}%</div>
+          </div>
+          <span class="badge br">${r.unib_f.toFixed(1)}%</span>
+        </div>`;
+    });
+  }
+
+  // Umumiy table
+  const tbU = document.getElementById('tbU');
+  d.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="tc-num" style="color:var(--txt3)">${i+1}</td>
+      <td class="tc-name">${r.tuman}</td>
+      <td class="tc-num">${n(r.reja)}</td>
+      <td>${pi(r.ekish_f)}</td>
+      <td>${pi(r.sug_f)}</td>
+      <td class="tc-num">${n(r.unib_ga)}</td>
+      <td>${badge(r.unib_f)}</td>`;
+    tbU.appendChild(tr);
+  });
+  const totR=document.createElement('tr'); totR.className='total-row';
+  const avgE2=d.reduce((s,r)=>s+r.ekish_f,0)/d.length;
+  const avgS2=d.reduce((s,r)=>s+r.sug_f,0)/d.length;
+  const avgU2=d.reduce((s,r)=>s+r.unib_f,0)/d.length;
+  totR.innerHTML=`<td>—</td><td class="tc-name">JAMI / OʻRTACHA</td><td class="tc-num">${n(totReja)}</td>
+    <td>${pi(avgE2)}</td><td>${pi(avgS2)}</td>
+    <td class="tc-num">${n(totUnib)}</td><td>${badge(avgU2)}</td>`;
+  tbU.appendChild(totR);
+
+  // Jami table
+  const tbJ = document.getElementById('tbJ');
+  data.jami.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="tc-num" style="color:var(--txt3)">${i+1}</td>
+      <td class="tc-name">${r.tuman}</td>
+      <td class="tc-num">${n(r.reja)}</td>
+      <td class="tc-num">${n(r.suvli_ga)}</td>
+      <td>${pi(r.suvli_f)}</td>
+      <td>${r.lalmi_ga>0?`<span class="tc-num">${n(r.lalmi_ga)}</span>`:'—'}</td>
+      <td>${r.lalmi_ga>0?badge(r.lalmi_f):'—'}</td>`;
+    tbJ.appendChild(tr);
+  });
+
+  buildCharts(data, sorted);
+}
+
+function buildCharts(data, sorted){
+  const d=data.umumiy;
+  const labels=d.map(r=>sn(r.tuman));
+  const unib=d.map(r=>r.unib_f);
+  const ekish=d.map(r=>Math.min(r.ekish_f,100));
+  const sug=d.map(r=>Math.min(r.sug_f,100));
+  const tick={color:'#7A9A8A',font:{size:10,family:'Inter'}};
+  const grid={color:'rgba(0,0,0,.04)'};
+
+  // Forecast stacked bar
+  _charts.forecast = new Chart(document.getElementById('cForecast'),{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:'Unib chiqdi', data:unib.map((v,i)=>Math.min(v,100)*d[i].reja/100),
+          backgroundColor:'#3A9966', borderRadius:3, borderSkipped:false},
+        {label:'Hali unimagan', data:d.map(r=>Math.max(0,r.reja-r.unib_ga)),
+          backgroundColor:'#D4EFE2', borderRadius:3, borderSkipped:false},
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${n(c.parsed.y)} ha`}}},
+      scales:{
+        x:{stacked:true,ticks:{...tick,maxRotation:40},grid:{display:false}},
+        y:{stacked:true,ticks:{...tick,callback:v=>n(v)},grid}
+      }
+    }
+  });
+
+  // Donut
+  const good=d.filter(r=>r.unib_f>=95).length;
+  const mid=d.filter(r=>r.unib_f>=80&&r.unib_f<95).length;
+  const bad=d.filter(r=>r.unib_f<80).length;
+  _charts.donut = new Chart(document.getElementById('cDonut'),{
+    type:'doughnut',
+    data:{
+      labels:['Yaxshi (≥95%)','Oʻrta (80–94%)','Kuzatish (<80%)'],
+      datasets:[{data:[good,mid,bad],
+        backgroundColor:['#3A9966','#E8963A','#DC4C4C'],
+        borderColor:'#fff', borderWidth:3, hoverOffset:5
+      }]
+    },
+    options:{
+      responsive:false, cutout:'62%',
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>`${c.label}: ${c.parsed} ta tuman`}}}
+    }
+  });
+
+  // Line chart
+  _charts.line = new Chart(document.getElementById('cLine'),{
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        {label:'Ekish %',    data:ekish, borderColor:'#3A9966', backgroundColor:'rgba(58,153,102,.08)',
+          fill:true, tension:.4, pointRadius:2.5, pointBackgroundColor:'#3A9966', borderWidth:2},
+        {label:'Sugʻorish %',data:sug,   borderColor:'#3A7BD5', backgroundColor:'rgba(58,123,213,.06)',
+          fill:true, tension:.4, pointRadius:2.5, pointBackgroundColor:'#3A7BD5', borderWidth:2},
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{...tick,maxRotation:40},grid:{display:false}},
+        y:{min:50,max:105,ticks:{...tick,callback:v=>v+'%'},grid}
+      }
+    }
+  });
+
+  // Pipeline horizontal bar (suvli vs lalmi)
+  const jamiLabels = data.jami.slice(0,8).map(r=>sn(r.tuman));
+  const suvliData  = data.jami.slice(0,8).map(r=>r.suvli_ga);
+  const lalmiData  = data.jami.slice(0,8).map(r=>r.lalmi_ga);
+  _charts.pipe = new Chart(document.getElementById('cPipe'),{
+    type:'bar',
+    data:{
+      labels:jamiLabels,
+      datasets:[
+        {label:'Suvli (ha)', data:suvliData, backgroundColor:'#3A9966', borderRadius:3, borderSkipped:false},
+        {label:'Lalmi (ha)', data:lalmiData, backgroundColor:'#A8D9BC', borderRadius:3, borderSkipped:false},
+      ]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:true,labels:{font:{size:10,family:'Inter'},color:'#7A9A8A',boxWidth:10}}},
+      scales:{
+        x:{stacked:false,ticks:{...tick,callback:v=>n(v)},grid},
+        y:{stacked:false,ticks:{...tick},grid:{display:false}}
+      }
+    }
+  });
+}
+
+function switchTab(btn,id){
+  btn.closest('.widget').querySelectorAll('.wtab-btn').forEach(b=>b.classList.remove('active'));
+  btn.closest('.widget').querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function scrollToEl(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+loadPeriod('2025-11');
+</script>
+</body>
+</html>
